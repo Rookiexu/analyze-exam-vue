@@ -13,7 +13,7 @@ function randomNum(minNum, maxNum) {
 module.exports = [
   // search classes
   {
-    url: '/vue-element-admin/charts/classes',
+    url: '/vue-element-admin/data/classes',
     type: 'get',
     response: () => {
       const info = {
@@ -42,6 +42,21 @@ module.exports = [
         }, {
           value: '4',
           label: '4班'
+        }, {
+          value: '5',
+          label: '5班'
+        }, {
+          value: '6',
+          label: '6班'
+        }, {
+          value: '7',
+          label: '7班'
+        }, {
+          value: '8',
+          label: '8班'
+        }, {
+          value: '9',
+          label: '9班'
         }]
       }
       return {
@@ -50,7 +65,7 @@ module.exports = [
       }
     }
   }, {
-    url: '/vue-element-admin/charts/students',
+    url: '/vue-element-admin/data/students',
     type: 'get',
     response: () => {
       Math.round(Math.random() * 10)
@@ -75,6 +90,28 @@ module.exports = [
           yAxis: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
           yName: '分'
         }
+      }
+      return {
+        code: 20000,
+        data: info
+      }
+    }
+  }, {
+    url: '/vue-element-admin/data/exams',
+    type: 'get',
+    response: () => {
+      Math.round(Math.random() * 10)
+      const info = {
+        exam_options: [{
+          value: '1',
+          label: '一月考'
+        }, {
+          value: '2',
+          label: '二月考'
+        }, {
+          value: '3',
+          label: '三月考'
+        }]
       }
       return {
         code: 20000,
