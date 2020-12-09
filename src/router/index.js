@@ -51,43 +51,32 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '主业', icon: 'dashboard' }
     }]
   },
-
   {
     path: '/data',
     component: Layout,
     redirect: '/data/table',
-    name: '数据',
-    meta: { title: '数据', icon: 'el-icon-s-help' },
+    meta: { title: '数据', icon: 'nested' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      }, {
-        path: 'exams',
-        name: 'exams',
-        component: () => import('@/views/table/exams'),
-        meta: { title: 'exams', icon: 'table' }
-      }, {
-        path: 'examResult',
-        name: 'examResult',
-        component: () => import('@/views/table/examResult'),
-        meta: { title: 'examResult', icon: 'table' }
-      }, {
-        path: 'edit',
-        name: 'edit',
-        component: () => import('@/views/table/edit-table'),
-        meta: { title: 'edit', icon: 'table' }
+        path: 'student',
+        name: 'student',
+        component: () => import('@/views/table/edit-student'),
+        meta: { title: '学生', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'exam',
+        name: 'exam',
+        component: () => import('@/views/table/edit-exam'),
+        meta: { title: '考试', icon: 'table' }
+      },
+      {
+        path: 'edit',
+        name: 'examResult',
+        component: () => import('@/views/table/edit-examResult'),
+        meta: { title: '考试成绩', icon: 'table' }
       }
     ]
   },
@@ -102,87 +91,15 @@ export const constantRoutes = [
         path: 'score',
         name: 'score',
         component: () => import('@/views/charts/studentScore'),
-        meta: { title: '成绩', icon: 'dashboard' }
+        meta: { title: '成绩', icon: 'form' }
       }, {
         path: 'rank',
         name: 'rank',
         component: () => import('@/views/charts/studentRank'),
-        meta: { title: '排名', icon: 'dashboard' }
+        meta: { title: '排名', icon: 'tree' }
       }
     ]
   },
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
-      },
-      {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
-      }
-    ]
-  },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
