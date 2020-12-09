@@ -1,5 +1,14 @@
 <template>
   <div class="app-container">
+    <div class="filter-container">
+      <el-select v-model="grade" placeholder="年级">
+        <el-option v-for="item in grade_options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
+      </el-select>
+      <el-select v-model="classId" placeholder="班级">
+        <el-option v-for="item in class_options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
+      </el-select>
+      <el-button @click="find(grade,classId)">查询数据</el-button>
+    </div>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -8,27 +17,22 @@
       fit
       highlight-current-row
     >
-      <el-table-column align="center" label="学生号" width="95">
+      <el-table-column align="center" label="examId" width="95" :filter-method="filterHandler">
         <template slot-scope="scope">
-          {{ scope.row.sId }}
+          {{ scope.row.examId }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="学生名字" width="95">
+      <el-table-column align="center" label="考试" width="95" :filter-method="filterHandler">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="班级" width="110" align="center">
+      <el-table-column label="考试年级" width="110" align="center" :filter-method="filterHandler">
         <template slot-scope="scope">
-          <span>{{ scope.row.classId }}</span>
+          <span>{{ scope.row.grade }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="年级" width="110" align="center">
-        <template slot-scope="scope">
-          {{ scope.row.grade }}
-        </template>
-      </el-table-column>
-      <el-table-column class-name="status-col" label="备注" align="center">
+      <el-table-column label="备注" align="center">
         <template slot-scope="scope">
           {{ scope.row.info }}
         </template>
@@ -56,6 +60,10 @@ export default {
       list: null,
       listLoading: true
     }
+  },
+  filterHandler(value, row, column) {
+    const property = column['property']
+    return row[property] === value || row[property].value === value
   },
   created() {
     this.fetchData()

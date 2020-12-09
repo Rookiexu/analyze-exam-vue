@@ -36,6 +36,22 @@ module.exports = {
       warnings: false,
       errors: true
     },
+    proxy: {
+      [process.env.VUE_APP_BASE_API]: {
+        target: process.env.VUE_APP_BASE_API_0,
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + '']: ''
+        }
+      },
+      '/api': {
+        target: 'http://127.0.0.1:2020',
+        changeOrigin: true,
+        pathRewrite: {
+          ['^' + process.env.VUE_APP_BASE_API]: ''
+        }
+      }
+    },
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {

@@ -56,17 +56,32 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/data',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/data/table',
+    name: '数据',
+    meta: { title: '数据', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
         meta: { title: 'Table', icon: 'table' }
+      }, {
+        path: 'exams',
+        name: 'exams',
+        component: () => import('@/views/table/exams'),
+        meta: { title: 'exams', icon: 'table' }
+      }, {
+        path: 'examResult',
+        name: 'examResult',
+        component: () => import('@/views/table/examResult'),
+        meta: { title: 'examResult', icon: 'table' }
+      }, {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/table/edit-table'),
+        meta: { title: 'edit', icon: 'table' }
       },
       {
         path: 'tree',
@@ -76,7 +91,26 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/charts',
+    redirect: '/charts',
+    name: 'charts',
+    meta: { title: '图表', icon: 'el-icon-s-help' },
+    component: Layout,
+    children: [
+      {
+        path: 'score',
+        name: 'score',
+        component: () => import('@/views/charts/studentScore'),
+        meta: { title: '成绩', icon: 'dashboard' }
+      }, {
+        path: 'rank',
+        name: 'rank',
+        component: () => import('@/views/charts/studentRank'),
+        meta: { title: '排名', icon: 'dashboard' }
+      }
+    ]
+  },
   {
     path: '/form',
     component: Layout,
@@ -145,17 +179,6 @@ export const constantRoutes = [
         component: () => import('@/views/nested/menu2/index'),
         name: 'Menu2',
         meta: { title: 'menu2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
       }
     ]
   },
