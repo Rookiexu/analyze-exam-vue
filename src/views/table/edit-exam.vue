@@ -3,22 +3,23 @@
     <div class="filter-container">
       <el-select v-model="grade" placeholder="年级">
         <el-option v-for="item in grade_options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
+        <el-option key="empty" label="全部年级" value="-999" />
       </el-select>
-      <el-select v-model="classId" placeholder="班级">
-        <el-option v-for="item in class_options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled" />
+      <el-select v-model="examId" placeholder="考试">
+        <el-option v-for="item in exam_options" :key="item.examId" :label="item.examName" :value="item.examId" :disabled="item.disabled" />
+        <el-option key="empty" label="全部考试" value="-999" />
       </el-select>
-      <el-button @click="getList(grade,classId)">查询数据</el-button>
+      <el-button @click="getList(grade,classId,examId)">查询数据</el-button>
     </div>
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
-
-      <el-table-column align="center" label="examId" width="95" :sortable="true">
+      <el-table-column align="center" label="ID" width="95" :sortable="true">
         <template slot-scope="scope">
-          {{ scope.row.Id }}
+          {{ scope.row.examId }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="考试" width="95" :sortable="true">
+      <el-table-column align="center" label="考试" width="110" :sortable="true">
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          {{ scope.row.examName }}
         </template>
       </el-table-column>
       <el-table-column label="考试年级" width="110" align="center" :sortable="true">
@@ -71,17 +72,17 @@
 </template>
 
 <script>
-import { getMockList } from '@/api/table'
-import { getClassList } from '@/api/charts'
+import { getClassList } from '@/api/baseData'
+import { getExamList } from '@/api/table'
+import { editExam } from '@/api/edit'
 
 export default {
   name: 'InlineEditTable',
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
+        0: 'success',
+        1: 'danger'
       }
       return statusMap[status]
     }
@@ -90,8 +91,10 @@ export default {
     return {
       grade_options: [],
       class_options: [],
-      grade: '2017',
-      classId: '1',
+      exam_options: [],
+      grade: '-999',
+      classId: '-999',
+      examId: '-999',
       list: null,
       listLoading: false,
       listQuery: {
@@ -108,14 +111,26 @@ export default {
       const _this = this
       getClassList().then(response => {
         _this.grade_options = response.data.grade_options
-        _this.class_options = response.data.class_options
+      })
+      const params = {
+        classId: '-999',
+        grade: '-999',
+        examId: '-999'
+      }
+      getExamList(params).then(response => {
+        _this.exam_options = response.data
       })
     },
-    async getList(classId, grade) {
+    async getList(grade, classId, examId) {
       this.listLoading = true
-      const { data } = await getMockList(this.listQuery)
-      const items = data.items
-      this.list = items.map(v => {
+      this.list = null
+      const params = {
+        classId: classId,
+        grade: grade,
+        examId: examId
+      }
+      const { data } = await getExamList(params)
+      this.list = data.map(v => {
         this.$set(v, 'edit', false) // https://vuejs.org/v2/guide/reactivity.html
         v.originalTitle = v.title //  will be used when user click the cancel botton
         return v
@@ -133,9 +148,15 @@ export default {
     confirmEdit(row) {
       row.edit = false
       row.originalTitle = row.title
-      this.$message({
-        message: 'The title has been edited',
-        type: 'success'
+      const params = {
+        examId: row.examId,
+        title: row.title
+      }
+      editExam(params).then(() => {
+        this.$message({
+          message: 'The title has been edited',
+          type: 'success'
+        })
       })
     }
   }
