@@ -9,6 +9,14 @@ export function getExamList(params) {
   })
 }
 
+export function getExamResultList(params) {
+  return request({
+    url: '/data/examResults',
+    method: 'get',
+    params
+  })
+}
+
 export function getStudentList(params) {
   return request({
     url: '/data/students',
