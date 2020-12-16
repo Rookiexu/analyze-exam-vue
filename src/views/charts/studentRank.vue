@@ -28,7 +28,7 @@ export default {
       grade_options: [],
       class_options: [],
       grade: '2017',
-      checkList: [4],
+      checkList: null,
       seriesData: null,
       titleInfo: null
     }

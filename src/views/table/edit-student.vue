@@ -78,7 +78,7 @@
 
 <script>
 import { getStudentList } from '@/api/table'
-import { getClassList } from '@/api/baseData'
+import { getClassList } from '@/api/charts'
 import { editStudent } from '@/api/edit'
 
 export default {

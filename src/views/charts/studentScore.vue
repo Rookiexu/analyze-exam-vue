@@ -28,7 +28,7 @@ export default {
       grade_options: [],
       class_options: [],
       grade: '2017',
-      checkList: [4],
+      checkList: null,
       seriesData: null,
       titleInfo: null
     }
@@ -44,8 +44,6 @@ export default {
     }, find(grade, checkList) {
       const that = this
       getScore(grade, checkList).then(response => {
-        console.log('Chart', Chart)
-        console.log('that.chart', that.chart)
         that.seriesData = response.data.seriesData
         that.titleInfo = response.data.titleInfo
       })

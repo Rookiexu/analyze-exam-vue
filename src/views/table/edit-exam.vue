@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { getClassList } from '@/api/baseData'
+import { getClassList } from '@/api/charts'
 import { getExamList } from '@/api/table'
 import { editExam } from '@/api/edit'
 

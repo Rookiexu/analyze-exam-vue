@@ -98,7 +98,7 @@
 
 <script>
 import { getExamResultList } from '@/api/table'
-import { getClassList } from '@/api/baseData'
+import { getClassList } from '@/api/charts'
 import { getExamList } from '@/api/table'
 import { editExamResult } from '@/api/edit'
 
