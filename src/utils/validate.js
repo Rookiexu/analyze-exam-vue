@@ -17,3 +17,11 @@ export function isExternal(path) {
 export function validUsername(str) {
   return true
 }
+
+/**
+ * @param  form
+ * @returns {string}
+ */
+export function validEventForm(form) {
+  return 'success'
+}
