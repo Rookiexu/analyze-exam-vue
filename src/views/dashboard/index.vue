@@ -202,13 +202,9 @@ export default {
       let level4 = 0
       let level3 = 0
       let level2 = 0
-      let level1 = 0
       for (const e of this.events) {
         if (!e.eventComplete && this.isInDay(day, e)) {
           switch (e.type) {
-            case 1:
-              level1++
-              break
             case 2:
               level2++
               break
@@ -221,11 +217,10 @@ export default {
           }
         }
       }
-      let str = (level4 === 0 ? '' : '紧急:' + level4 + ',') +
-        (level3 === 0 ? '' : '重要不紧急:' + level4 + ',') +
-        (level2 === 0 ? '' : '不重要紧急:' + level4 + ',') +
-        (level1 === 0 ? '' : '一般:' + level4 + ',')
-      str = str.substring(0, str.lastIndexOf(',')) + '。'
+      let str = (level4 === 0 ? '' : '紧要:' + level4 + ',') +
+        (level3 === 0 ? '' : '重要:' + level3 + ',') +
+        (level2 === 0 ? '' : '紧急:' + level2 + ',')
+      str = str.substring(0, str.lastIndexOf(','))
       return str
     },
     getFullInfo(day) {
