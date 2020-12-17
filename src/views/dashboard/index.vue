@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <div class="dashboard-text">go go go</div>
     <template>
-      <el-select v-model="event" clearable placeholder="当日计划" @clear="clearSelect">
+      <el-select v-model="event" clearable placeholder="请选择当日计划" @clear="clearSelect">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -185,8 +185,8 @@ export default {
     }, isInDay(date, e) {
       const startDate = e.startDate
       const endDate = e.endDate
-      const a = date > startDate
-      const b = date < endDate
+      const a = date >= startDate
+      const b = date <= endDate
       return a && b
     },
     getTodoInfo(day) {
