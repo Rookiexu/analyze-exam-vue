@@ -361,6 +361,28 @@ export default {
             lineStyle: {
               color: '#47a1f6'
             }
+          },
+          formatter: function(params) {
+            let res = params[0].axisValueLabel
+
+            function getHtml(param) {
+              const str = '<div style="float: left"><span style="background: ' + param.color + '; width: 11px; height: 11px; border-radius: 11px;float: left; margin: 5px 3px;"></span>' +
+                param.seriesName + ':' + param.data + '&emsp;&emsp;</div>'
+              return str
+            }
+
+            res += '<div style="clear: both">'
+            for (let i = 0; i < params.length; i++) {
+              res += getHtml(params[i])
+              if (params.length > 11 && i % 2 === 1) {
+                res += '</div><div style="clear: both">'
+              }
+              if (params.length <= 11) {
+                res += '</div><div style="clear: both">'
+              }
+            }
+            res += '</div>'
+            return res
           }
         },
         legend: {
@@ -420,7 +442,10 @@ export default {
           },
           data: ['100', '80', '60', '40', '20', '10', '0']
         }],
-        series: null
+        series: {
+          showAllSymbol: true
+        }
+
       })
     }
   }
