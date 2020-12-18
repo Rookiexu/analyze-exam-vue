@@ -45,7 +45,7 @@ module.exports = {
         }
       },
       '/api': {
-        target: 'http://127.0.0.1:2020',
+        target: process.env.VUE_APP_BASE_API_0,
         changeOrigin: true,
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
