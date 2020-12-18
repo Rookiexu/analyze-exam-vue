@@ -15,32 +15,32 @@
       <el-button @click="getList(grade,classId,examId)">查询数据</el-button>
     </div>
     <el-table v-loading="listLoading" :data="list" border fit highlight-current-row style="width: 100%">
-      <el-table-column align="center" label="ID" width="95" :sortable="true">
+      <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.row.examId }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="考试" width="110" :sortable="true">
+      <el-table-column align="center" label="考试" width="110">
         <template slot-scope="scope">
           {{ scope.row.examName }}
         </template>
       </el-table-column>
-      <el-table-column label="考试年级" width="110" align="center" :sortable="true">
+      <el-table-column label="考试年级" width="110" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.grade }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="考试班级" width="110" align="center" :sortable="true">
+      <el-table-column label="考试班级" width="110" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.classId }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="学生" width="95" :sortable="true">
+      <el-table-column align="center" label="学生" width="95">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="分数" width="110" align="center" :sortable="true">
+      <el-table-column label="分数" width="110" align="center">
         <template slot-scope="scope">
           <span>{{ scope.row.score }}</span>
         </template>

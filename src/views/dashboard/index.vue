@@ -191,20 +191,32 @@ export default {
     },
     getTodoInfo(day) {
       let count = 0
+      let completeCount = 0
       for (const e of this.events) {
-        if (!e.eventComplete && this.isInDay(day, e)) {
-          count++
+        if (this.isInDay(day, e)) {
+          if (!e.eventComplete) {
+            count++
+          } else {
+            completeCount++
+          }
         }
       }
-      return (count === 0 ? '' : '  待办 : ' + count)
+
+      const s = (count === 0 ? '' : '  待办 : ' + count + ',') +
+      (completeCount === 0 ? '' : '  完成 : ' + completeCount + ',')
+      return s.substring(0, s.lastIndexOf(','))
     },
     getSimpleInfo(day) {
       let level4 = 0
       let level3 = 0
       let level2 = 0
+      let level1 = 0
       for (const e of this.events) {
         if (!e.eventComplete && this.isInDay(day, e)) {
           switch (e.type) {
+            case 1:
+              level1++
+              break
             case 2:
               level2++
               break
@@ -219,7 +231,8 @@ export default {
       }
       let str = (level4 === 0 ? '' : '紧要:' + level4 + ',') +
         (level3 === 0 ? '' : '重要:' + level3 + ',') +
-        (level2 === 0 ? '' : '紧急:' + level2 + ',')
+        (level2 === 0 ? '' : '紧急:' + level2 + ',') +
+        (level1 === 0 ? '' : '普通:' + level1 + ',')
       str = str.substring(0, str.lastIndexOf(','))
       return str
     },
@@ -227,7 +240,7 @@ export default {
       let info = ''
       let i = 0
       for (const e of this.events) {
-        if (this.isInDay(day, e)) {
+        if (!e.eventComplete && this.isInDay(day, e)) {
           if (i++ !== 0) {
             info = info + ','
           }
